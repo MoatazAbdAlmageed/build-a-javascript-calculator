@@ -6,6 +6,7 @@
     "ajv": "^6.5.1",
     "history": "^1.17.0",
     "jquery": "^1.9.1",
+    "mathjs": "^5.0.2",
     "popper.js": "^1.14.3",
     "react": "^16.4.1",
     "react-alert": "^4.0.4",
@@ -20,6 +21,5 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
-  "devDependencies": {
-  }
+  "devDependencies": {}
 }
