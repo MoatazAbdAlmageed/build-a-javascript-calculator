@@ -35,14 +35,18 @@ export class Calculator extends Component {
         }
 
 
+        /*
+        * Decimal . cases */
         if (typeof display === "string" ){
 
 
-            /* cannot add multi .. */
+
+            /* case 1 : cannot add multi .. */
             if ( input === '.' && display.slice(-1) ==='.'){
                 return
             }
 
+            /* case 2 : if no operations one . should be addedd*/
 
             /*
             user canot add multi . for the onr number like =>  1.5+2.5+5..2
