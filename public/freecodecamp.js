@@ -20494,13 +20494,25 @@ var FCC_Global =
 	      reqNum++;
 	      it(reqNum + '. In any order, I should be able to add, subtract, multiply\n      and divide a chain of numbers of any length, and when I hit "=", the\n      correct result should be shown in the element with the id of "display"', function () {
 	        (0, _elementUtils.clickButtonsById)([_3, _plus, _5, _x, _6, _min, _2, _div, _4, _eq]);
-	        (0, _chai.assert)(document.getElementById('display').innerHTML === '32.5' || document.getElementById('display').innerHTML === '11.5', 'The expression 3 + 5 * 6 - 2 / 4 should produce 32.5 or 11.5 as an\n          answer, depending on the logic your calculator uses\n          (formula vs. immediate execution) ');
-	        clearDisplay();
-	        (0, _elementUtils.clickButtonsById)([_5, _min, _9, _plus, _5, _eq]);
-	        (0, _chai.assert)(document.getElementById('display').innerHTML === '1', 'The expression 5 - 9 + 5 should produce a result of 1 ');
-	      });
 
-	      reqNum++;
+
+              window.setTimeout(function(){
+                  (0, _chai.assert)(document.getElementById('display').innerHTML === '32.5' || document.getElementById('display').innerHTML === '11.5', 'The expression 3 + 5 * 6 - 2 / 4 should produce 32.5 or 11.5 as an\n          answer, depending on the logic your calculator uses\n          (formula vs. immediate execution) ');
+
+
+
+                  clearDisplay();
+                  (0, _elementUtils.clickButtonsById)([_5, _min, _9, _plus, _5, _eq]);
+                  (0, _chai.assert)(document.getElementById('display').innerHTML === '1', 'The expression 5 - 9 + 5 should produce a result of 1 ');
+              });
+
+              reqNum++;
+              }, 600);
+
+
+
+
+
 	      it(reqNum + '. When inputting numbers, my calculator should not allow a\n      number to begin with multiple zeros.', function () {
 	        (0, _elementUtils.clickButtonsById)([_0, _0, _0]);
 	        _chai.assert.strictEqual(document.getElementById('display').innerHTML, '0', 'An input of 0 0 0 should display 0 ');
@@ -20550,8 +20562,16 @@ var FCC_Global =
 
 	      reqNum++;
 	      it(reqNum + '. My calculator should have several decimal places of\n      precision when it comes to rounding (note that there is no exact\n      standard, but you should be able to handle calculations like "2 / 7" with\n      reasonable precision to at least 4 decimal places)', function () {
-	        (0, _elementUtils.clickButtonsById)([_2, _div, _7, _eq]);
-	        _chai.assert.isOk(/0?\.2857\d*/.test(document.getElementById('display').innerHTML), 'The expression "2 / 7" should produce an output number with at ' + 'least 4 decimal places of precision ');
+
+
+              window.setTimeout(function(){
+
+
+                  (0, _elementUtils.clickButtonsById)([_2, _div, _7, _eq]);
+                  _chai.assert.isOk(/0?\.2857\d*/.test(document.getElementById('display').innerHTML), 'The expression "2 / 7" should produce an output number with at ' + 'least 4 decimal places of precision ');
+
+              }, 600);
+
 	      });
 
 	      // END #Tests
