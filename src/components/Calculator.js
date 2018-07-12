@@ -15,7 +15,7 @@ export class Calculator extends Component {
         let display = this.state.display;
 
         let input = e.target.value;
-        debugger
+
 
 
 
@@ -183,8 +183,8 @@ export class Calculator extends Component {
     //     this.setState({input})
     // }
 
-    componentDidMount() {
-    }
+    // componentDidMount() {
+    // }
 
     render() {
 
