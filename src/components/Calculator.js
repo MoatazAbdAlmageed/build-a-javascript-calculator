@@ -1,65 +1,90 @@
 import React, {Component} from 'react';
 
 const math = require('mathjs')
+let canAddDot = true;
+let canAddPlus = true;
+let canAddMinus = true;
+let canAddDivide= true;
+let canAddMulti= true;
 
 export class Calculator extends Component {
 
-    constructor(props) {
-
-        super(props);
-
-        this.state = {
-            display: 0,
-        };
-
-
-    }
-
-
-    componentDidMount() {
-    }
-
-
-    // handleTypeChange = (e) => {
-    //     const input = e.target.value;
-    //     this.setState({input})
-    // }
-
     handleKeyPress = (e) => {
 
+
         let display = this.state.display;
-        debugger
+
         let input = e.target.value;
-        if (display === 0 &&  input == 0) {
+        debugger
+
+
+
+        if (display === 0 &&  input === 0) {
             return
         }
 
 
-        /*
-        * Decimal . cases */
-        if (typeof display === "string" ){
 
+        /*empty init 0 s*/
+        if (input && ( display === 0 ||  display === '') ){
+            this.setState({display:input})
+        }
 
-
-            /* case 1 : cannot add multi .. */
-            if ( input === '.' && display.slice(-1) ==='.'){
+        /*canAddDot*/
+        if ( input === '.' ){
+            if (!canAddDot){
                 return
             }
-
-            /* case 2 : if no operations one . should be addedd*/
-
-            /*
-            user canot add multi . for the onr number like =>  1.5+2.5+5..2
-
-            I will count operations (+,-,*,/) max
-
-            */
-
+            else{
+                canAddDot = false
+            }
         }
-        /*empty init 0 s*/
-        if (display === 0 ){
-            display = ''
+
+
+        /*canAddPlus*/
+        if ( input === '+' ){
+            if (!canAddPlus){
+                return
+            }
+            else{
+                canAddPlus = false
+            }
         }
+
+        /*canAddMinus*/
+        if ( input === '-' ){
+            if (!canAddMinus){
+                return
+            }
+            else{
+                canAddMinus = false
+            }
+        }
+        /*canAddMulti*/
+        if ( input === 'x' ){
+            if (!canAddMulti){
+                return
+            }
+            else{
+                canAddMulti = false
+            }
+        }
+
+        /*canAddDivide*/
+        if ( input === '/' ){
+            if (!canAddDivide){
+                return
+            }
+            else{
+                canAddDivide = false
+            }
+        }
+
+
+
+
+
+
 
 
         /*Parse numbers */
@@ -78,34 +103,39 @@ export class Calculator extends Component {
         ];
 
 
-        const operations = [
+        const operators = [
             '+',
             '-',
             '/',
             '*',
         ];
 
-        // if (numbers.includes(input)){
-        //     input = parseInt(input)
-        // }
+        if (numbers.includes(input)){
+
+            canAddMinus =  true;
+            canAddPlus = true;
+            canAddMulti = true;
+            canAddDivide = true;
+
+            // input = parseInt(input)
+        }
 
 
         /* Clear */
         if (input === 'C') {
-            this.setState({display: 0})
+            // document.getElementById("display").setAttribute('type', 'number');
+            document.getElementById("display").innerHtml = 0
+            this.setState({display: '0'})
             return
         }
 
 
-        /* multiply */
-        if (input === 'x') {
-            input = '*'
-        }
+
 
 
         /*Equals*/
         if (input === '=') {
-            this.setState({display: math.eval(display)})
+            this.setState({display: math.eval(display).toString()})
             return
         }
 
@@ -114,16 +144,46 @@ export class Calculator extends Component {
 
 
         // if no number on the screen and user try to add operation it return
-        if (!display && operations.includes(input)) {
-            return
+        if ( operators.includes(input)) {
+            canAddDot = true
+            if (!display){
+
+                return
+            }
         }
 
 
-        display += input
+        // display += input
+
+        if (!display || display == '0' || display == ''){
+            this.setState({display: input})
+        }
+        else{
+
+            this.setState({display:display+input})
+
+        }
+
+    }
+
+    constructor(props) {
+
+        super(props);
+
+        this.state = {
+            display:0,
+        };
 
 
-        this.setState({display: display})
+    }
 
+
+    // handleTypeChange = (e) => {
+    //     const input = e.target.value;
+    //     this.setState({input})
+    // }
+
+    componentDidMount() {
     }
 
     render() {
@@ -132,7 +192,11 @@ export class Calculator extends Component {
         return (
             <div className="calc">
                 <fieldset id="container">
-                    <input id="display" value={this.state.display} type="text" name="display" readOnly/>
+                    <input
+                        id="display" value={this.state.display  }
+                        type="text" name="display"
+                        readOnly
+                    />
                     <input id='clear'
                            className="button"
                            type="button" value="C"
@@ -168,7 +232,7 @@ export class Calculator extends Component {
                            type="button" value="3"
                            onClick={this.handleKeyPress}/>
                     <input id='multiply' className="button mathButtons"
-                           type="button" value="x"
+                           type="button" value="*"
                            onClick={this.handleKeyPress}/>
                     <br/>
 
