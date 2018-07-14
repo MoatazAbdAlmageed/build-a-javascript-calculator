@@ -192,11 +192,13 @@ export class Calculator extends Component {
         return (
             <div className="calc">
                 <fieldset id="container">
-                    <input
-                        id="display" value={this.state.display  }
-                        type="text" name="display"
-                        readOnly
-                    />
+                    {/*<input*/}
+                        {/*id="display" value={this.state.display  }*/}
+                        {/*type="text" name="display"*/}
+                        {/*readOnly*/}
+                    {/*/>*/}
+
+                    <h1 id="display">{this.state.display}</h1>
                     <input id='clear'
                            className="button"
                            type="button" value="C"
