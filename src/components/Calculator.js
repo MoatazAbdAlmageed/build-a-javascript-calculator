@@ -61,7 +61,7 @@ export class Calculator extends Component {
             }
         }
         /*canAddMulti*/
-        if ( input === 'x' ){
+        if ( input === '*' ){
             if (!canAddMulti){
                 return
             }
@@ -123,6 +123,8 @@ export class Calculator extends Component {
 
         /* Clear */
         if (input === 'C') {
+            canAddDot = true;
+
             // document.getElementById("display").setAttribute('type', 'number');
             document.getElementById("display").innerHtml = 0
             this.setState({display: '0'})
@@ -145,22 +147,29 @@ export class Calculator extends Component {
 
         // if no number on the screen and user try to add operation it return
         if ( operators.includes(input)) {
+            var lastChar = display.substr(display.length - 1); // => "1"
+            let displayAsArray = display.slice().split('');
+            if ( operators.includes(lastChar)) { /* if last char in operator */
+                displayAsArray[displayAsArray.length - 1] = input; /*replace last char with operator (input) */
+                this.setState({display: displayAsArray.join('')})
+               return
+            }
             canAddDot = true
             if (!display){
-
                 return
             }
+
         }
 
 
         // display += input
 
-        if (!display || display == '0' || display == ''){
+        if (!display || display === '0' || display === ''){
             this.setState({display: input})
         }
         else{
-
             this.setState({display:display+input})
+
 
         }
 
@@ -193,9 +202,9 @@ export class Calculator extends Component {
             <div className="calc">
                 <fieldset id="container">
                     {/*<input*/}
-                        {/*id="display" value={this.state.display  }*/}
-                        {/*type="text" name="display"*/}
-                        {/*readOnly*/}
+                    {/*id="display" value={this.state.display  }*/}
+                    {/*type="text" name="display"*/}
+                    {/*readOnly*/}
                     {/*/>*/}
 
                     <h1 id="display">{this.state.display}</h1>
